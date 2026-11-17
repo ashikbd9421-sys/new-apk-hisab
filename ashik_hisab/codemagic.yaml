@@ -1,0 +1,15 @@
+workflows:
+  ashik-hisab-apk:
+    name: Ashik Hisab APK Build
+    max_build_duration: 60
+    environment:
+      flutter: stable
+      java: 17
+    scripts:
+      - name: Build APK Release
+        script: |
+          flutter pub get
+          sed -i.bak 's/android:label="ashik_hisab"/android:label="আশিক হিসাব"/' android/app/src/main/AndroidManifest.xml
+          flutter build apk --release
+    artifacts:
+      - build/app/outputs/flutter-apk/*.apk
